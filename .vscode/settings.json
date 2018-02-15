@@ -1,0 +1,13 @@
+{
+    "jshint.enable": true,
+    "editor.wordWrap": "on",
+    // Controls if quick suggestions should show up while typing
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": false
+    },
+    // Enable parameter hints
+    "editor.parameterHints": true
+    
+}
