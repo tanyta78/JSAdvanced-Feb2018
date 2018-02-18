@@ -11,5 +11,10 @@
             "name": "Launch Program",
             "program": "${workspaceFolder}/index.js"
         }
-    ]
+    ],
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs"
+    },
+    "protocol": "inspector",
 }
