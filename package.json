@@ -1,7 +1,32 @@
 {
- "typeAcquisition": {
-     "include": [
-         "jquery"
-     ]
-   }
+  "typeAcquisition": {
+    "include": [
+      "jquery"
+    ]
+  },
+  "name": "package",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@types/jquery": "^3.3.0",
+    "eslint-plugin-react": "^7.6.1",
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tanyta78/JSAdvanced-Feb2018.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tanyta78/JSAdvanced-Feb2018/issues"
+  },
+  "homepage": "https://github.com/tanyta78/JSAdvanced-Feb2018#readme"
 }

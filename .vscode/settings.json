@@ -8,6 +8,6 @@
         "strings": false
     },
     // Enable parameter hints
-    "editor.parameterHints": true
-    
+    "editor.parameterHints": true,
+    "mocha.enabled": true
 }
