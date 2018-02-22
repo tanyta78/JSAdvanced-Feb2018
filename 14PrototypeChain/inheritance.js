@@ -38,12 +38,19 @@ let person=new Person('Maria','mm@abv.bg');
 let teacher = new Teacher('Ivan','ii@fff.ghj','History');
 let student=new Student('Pesho','pp@pp.aa','JS');
 
-function extendClass(classToExtend) {
-   classToExtend.prototype.species='Human';
-   classToExtend.prototype.toSpeciesString=function(){
-       return `I am a ${this.species}. ${this.toString()}`;
-   };
-   
-}
+console.log('Object.getPrototypeOf(teacher)'+Object.getPrototypeOf(teacher));
+console.log('Teacher.prototype'+Teacher.prototype);
+console.log('teacher.age: '+teacher.age);
+Teacher.prototype.age=21;
+console.log('teacher.age: '+teacher.age);
+console.log('person.age: '+person.age);
+Person.prototype.age=33;
+console.log('teacher.age: '+teacher.age);
+console.log('person.age: '+person.age);
 
 
+
+
+
+
+//module.exports = { createCalculator };
