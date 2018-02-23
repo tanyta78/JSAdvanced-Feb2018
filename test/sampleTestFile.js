@@ -1,49 +1,75 @@
-let expect = require("chai").expect;
-let createCalculator = require("../index").createCalculator;
+let expect = require('chai').expect;
+let should = require('chai').should;
+let assert = require('chai').assert;
+let nuke = require("../index").nuke;
+let jsdom = require('jsdom-global')();
+let $ = require('jquery');
 
-describe("createCalculator", function () {
-   let calc;
-
-   beforeEach(function () {
-       calc=createCalculator();
-   });
-
-   it("should return 0 after create", function() {
-    let value = calc.get();
-    expect(value).to.be.equal(0);
+describe("function nuke", function () {
+  beforeEach(() => {
+    document.body.innerHTML =
+      `<div id="target">
+              <div class="nested target">
+                  <p>This is some text</p>
+              </div>
+              <div class="target">
+                  <p>Empty div</p>
+              </div>
+              <div class="inside">
+                  <span class="nested">Some more text</span>
+                  <span class="target">Some <span>more</span> text</span>
+              </div>
+          </div>`
   });
 
-   it("should return 5 after {add 3; add 2}", function() {
-    calc.add(3); calc.add(2); let value = calc.get();
-    expect(value).to.be.equal(5);
+  before(() => global.$ = $);
+  it("should do nothing if selectors are equal", function () {
+    let beforeNuke = $('body').html();
+    nuke('#target', '#target');
+    let afterNuke = $('body').html();
+    expect(beforeNuke).to.equal(afterNuke);
   });
-
-  it("should return -5 after {subtract 3; subtract 2}", function() {
-    calc.subtract(3); calc.subtract(2);
-    let value = calc.get();
-    expect(value).to.be.equal(-5);
+  it("should remove one span for ('.target', 'span')", function () {
+    let initialTargetLength = $('.target').length;
+    let initialSpanLength = $('span').length;
+    let initialSpanTargetLength = $('.target').filter('span').length;
+    if ($('.target').filter('span').has('span')) {
+      initialSpanLength--;
+    }
+    nuke(".target", "span");
+    expect($('.target').filter('span').length).to.be.equal(0);
+    expect($('span').length).to.equal(initialSpanLength - initialSpanTargetLength);
+    expect($('.target').length).to.equal(initialTargetLength - initialSpanTargetLength);
   });
-
-  it("should return 4.1 after {add 5.3; subtract 1.2}", function() {
-    calc.add(5.3); calc.subtract(1.2);
-    let value = calc.get();
-    expect(value).to.be.equal(4.1);
+  it("should remove two divs for ('div', '.target')", function () {
+    let initialTargetLength = $('.target').length;
+    let initialDivLength = $('div').length;
+    let initialDivTargetLength = $('.target').filter('div').length;
+    nuke('div', '.target');
+    expect($('.target').filter('div').length).to.be.equal(0);
+    expect($('div').length).to.equal(initialDivLength - initialDivTargetLength);
+    expect($('.target').length).to.equal(initialTargetLength - initialDivTargetLength);
   });
-  it("should return 2 after {add 10; subtract '7' add'-2' subtract-1}", function() {
-    calc.add(10); calc.subtract('7');
-    calc.add('-2');calc.subtract(-1);
-    let value = calc.get();
-    expect(value).to.be.equal(2);
+  it("should remove one span for", function () {
+    nuke('.nested', 'span');
+    expect($('span.nested').length).to.be.equal(0);
   });
-  it("should return NaN after {add 'hello'}", function() {
-    calc.add('hello'); 
-    let value = calc.get();
-    expect(value).to.be.NaN;
+  it("should return the same html if one parameter is omitted", function () {
+    let beforeNuke = $('body').html();
+    nuke("div");
+    let afterNuke = $('body').html();
+    expect(beforeNuke).to.equal(afterNuke);
   });
-  it("should return NaN after {subtract 'hello'}", function() {
-    calc.subtract('hello'); 
-    let value = calc.get();
-    expect(value).to.be.NaN;
+  it("should return the same html if one parameter is omitted", function () {
+    let beforeNuke = $('body').html();
+    nuke("", "div");
+    let afterNuke = $('body').html();
+    expect(beforeNuke).to.equal(afterNuke);
   });
-
+  it("should do nothing for non-existing selector", function () {
+    let beforeNuke = $('body').html();
+    nuke("#invalid", "section");
+    let afterNuke = $('body').html();
+    expect(beforeNuke).to.equal(afterNuke);
+  });
 });
