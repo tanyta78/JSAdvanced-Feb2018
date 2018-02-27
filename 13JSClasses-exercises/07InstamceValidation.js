@@ -66,7 +66,7 @@ class CheckingAccount{
     }
 }
 
-//mine
+//mine with private incapsulated
 class CheckingAccount1 {
     constructor(idValue, emailValue, firstNameValue, lastNameValue) {
         let customerId, email, firstName, lastName;

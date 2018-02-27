@@ -33,7 +33,3 @@ function createList() {
     };
 }
 module.exports = { createList };
-
-
-
-//module.exports = { nuke };

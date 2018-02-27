@@ -1,13 +1,16 @@
 function attachEventsListeners() {
     // TODO: attach click event to convert button
-    // 1 km = 1000 m
-    // 1 m = 1 m
-    // 1 cm = 0.01 m
-    // 1 mm = 0.001 m
-    // 1 mi = 1609.34 m
-    // 1 yrd = 0.9144 m
-    // 1 ft = 0.3048 m
-    // 1 in = 0.0254 m
+    let rates={
+        'km'    : 1000 ,
+        'm'     : 1 ,
+        'cm'    : 0.01 ,
+        'mm'    : 0.001 ,
+        'mi'    : 1609.34 ,
+        'yrd'   : 0.9144 ,
+        'ft'    : 0.3048 ,
+        'in'    : 0.0254 ,
+    };
+   
 
     document.getElementById('convert').addEventListener('click', function () {
         let from = document.getElementById('inputUnits').value;
@@ -76,4 +79,11 @@ function attachEventsListeners() {
         document.getElementById('outputDistance').value=result;
     }
 }
-
+//other variant
+function convert() {
+    let from = document.getElementById('inputUnits').value;
+    let to = document.getElementById('outputUnits').value;
+   let value = Number(document.getElementById('inputDistance').value);
+   
+    document.getElementById('outputDistance').value=rates[from]* value/rates[to];
+}

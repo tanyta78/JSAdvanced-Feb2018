@@ -1,0 +1,57 @@
+<!-- JS Advanced Exam @ SoftUni - 13-Nov-2016 -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add / Remove Towns</title>
+    <style>
+        select,
+        input {
+            width: 100px
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+
+<body onload="attachEvents()">
+
+    <div>Towns</div>
+    <select id="towns" size="4">
+        <option>Sofia</option>
+        <option>Varna</option>
+        <option>Pleven</option>
+    </select>
+
+    <button id="btnDelete">Delete</button>
+
+    <div>
+        <input type="text" id="newItem" />
+        <button id="btnAdd">Add</button>
+    </div>
+
+    <script>
+        function attachEvents() {
+            // TODO: …
+            $('#btnAdd').on('click', addItem);
+            $('#btnDelete').on('click', deleteItem);
+
+            function addItem() {
+                let textToImport = $('#newItem').val();
+                if (textToImport != '') {
+                    $('<option>', { text: `${textToImport}` }).appendTo($('#towns'));
+                    $('#newItem').val('');
+                }
+
+            }
+
+            function deleteItem() {
+                let itemToDelete=$('#towns').find('option:selected');
+                itemToDelete.remove();
+            }
+        }
+    </script>
+</body>
+
+</html>
