@@ -1,28 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sum Numbers</title>
-</head>
+    <title>List Items: Up / Down</title>
+    <style>
+        button {
+            margin: 3px 0 3px 8px
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> </head>
 
 <body>
-    <input type="text" id="num1" /> +
-    <input type="text" id="num2" /> =
-    <input type="text" id="sum" readonly="readonly" />
-    <input type="button" value="Calc" onclick="calc()" />
-    <script>
-        function calc() {
-            // TODO: sum = num1 + num2
-            let num1=document.getElementById('num1').value;
-            let num2=document.getElementById('num2').value;
-            let sum=Number(num1)+Number(num2);
-            document.getElementById('sum').value=sum;
-        }
+    <div id="main"></div>
+    <script>   
+       function listBuilder(selector) {
+  return {
+    createNewList: function () {
+      //clears the contents of the selector and appends an empty <ul>
+      $(`${selector}`).empty().append('<ul>');
+    },
+    addItem: function (text) {
+      let element = $('<li>').text(text);
+      let upBtn = $('<button>Up</button>').on('click', this.moveup);
+      let downBtn = $('<button>Down</button>').on('click', this.movedown);
+      element.append(upBtn);
+      element.append(downBtn);
+      $(`${selector} ul`).append(element);
+    },
+    moveup: function () {
+      let el = $(this).parent();
+      el.insertBefore(el.prev());
+    },
+    movedown: function () {
+      let el = $(this).parent();
+      el.insertAfter(el.next());
+    }
+  }
+}
     </script>
-
+    <script>   $(function () { let builder = listBuilder("#main"); builder.createNewList(); builder.addItem("Sofia"); builder.addItem("Varna"); builder.addItem("Sofia <new>"); builder.addItem("Pleven"); }); </script>
 </body>
 
 </html>
