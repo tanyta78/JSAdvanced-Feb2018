@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Delete Town by Name</title>
+  <style>
+    select,
+    input {
+      width: 100px
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+
+<body onload="attachEvents('#generate')">
+  <div class="holder">
+    <input type="button" id="generate" value="Generate Summary" />
+    <div id="content">
+      <p>
+        <strong>Important text. </strong>Not too important.
+        <strong>Also useful info.</strong>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function attachEvents(selector) {
+      $(selector).on('click', findHighlighted);
+
+      function findHighlighted() {
+        let content = $('#content');
+        let parent = content.parent();
+        let result = $(`<div id="summary"><h2>Summary</h2></div>`);
+        let p = $(`<p></p>`);
+        result.append(p);
+        let strong = content.find('strong');
+
+        for (let el of strong) {
+          p.append(el.textContent);
+        }
+
+        parent.append(result);
+      };
+    }
+  </script>
+</body>
+
+</html>
