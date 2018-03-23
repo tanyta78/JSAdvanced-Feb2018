@@ -16,6 +16,7 @@ class MailBox {
   
     deleteAllMessages() {
       this.mailbox = [];
+      //this.mailbox.length=0;
     }
   
     findBySubject(substr) {
